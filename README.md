@@ -23,7 +23,7 @@ A playable Caro (Gomoku-style) AI game where a human player competes against the
 
 To start the game with the default settings (Console UI, Alpha-Beta AI on 9x9 board):
 ```bash
-python3 -msource_code.main
+python3 -m source_code.main
 ```
 
 ### Configuration Options
