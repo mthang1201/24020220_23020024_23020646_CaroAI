@@ -6,6 +6,14 @@ from source_code.ai.minimax import MinimaxAI
 from source_code.ai.alphabeta import AlphaBetaAI
 
 def main():
+    # Chọn giao diện chơi
+    print("Welcome to Caro AI!")
+    ui_choice = input("Choose UI:\n\t1 Console\n\t2 PyGame\n\t(default: Console):\nYour choice (1 or 2):")
+    if ui_choice == "2":
+        global DEFAULT_UI
+        DEFAULT_UI = "pygame"
+
+    # Thiết lập tham số
     parser = argparse.ArgumentParser(description="Caro AI Project")
     parser.add_argument("--ui", type=str, default=DEFAULT_UI, choices=["console", "pygame"], help="User interface to use")
     parser.add_argument("--algo", type=str, default="alphabeta", choices=["minimax", "alphabeta"], help="AI Algorithm")
