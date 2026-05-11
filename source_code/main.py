@@ -12,11 +12,18 @@ def main():
     if ui_choice == "2":
         global DEFAULT_UI
         DEFAULT_UI = "pygame"
+    
+    # Chọn thuật toán AI
+    algo_choice = input("Choose AI Algorithm:\n\t1 Minimax\n\t2 Alpha-Beta\n\t(default: Alpha-Beta):\nYour choice (1 or 2):")
+    if algo_choice == "1":
+        algo = "minimax"
+    else:        
+        algo = "alphabeta"
 
     # Thiết lập tham số
     parser = argparse.ArgumentParser(description="Caro AI Project")
     parser.add_argument("--ui", type=str, default=DEFAULT_UI, choices=["console", "pygame"], help="User interface to use")
-    parser.add_argument("--algo", type=str, default="alphabeta", choices=["minimax", "alphabeta"], help="AI Algorithm")
+    parser.add_argument("--algo", type=str, default=algo, choices=["minimax", "alphabeta"], help="AI Algorithm")
     parser.add_argument("--depth", type=int, default=None, help="Search depth for the AI")
     parser.add_argument("--board_size", type=int, default=BOARD_SIZE, help="Size of the board")
     parser.add_argument("--benchmark", action="store_true", help="Run benchmark instead of the game")
