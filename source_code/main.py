@@ -4,6 +4,7 @@ from source_code.config import BOARD_SIZE, DEFAULT_UI, DEFAULT_DEPTH_MINIMAX, DE
 from source_code.game.game_state import GameState
 from source_code.ai.minimax import MinimaxAI
 from source_code.ai.alphabeta import AlphaBetaAI
+from source_code.benchmark.benchmark_runner import run_benchmarks
 
 def main():
     # Chọn giao diện chơi
@@ -20,6 +21,18 @@ def main():
     else:        
         algo = "alphabeta"
 
+    # Chọn độ khó (độ sâu tìm kiếm)
+    depth_choice = input("Choose AI Difficulty:\n\t1 Easy\n\t2 Medium\n\t3 Hard\n\t(default: Medium):\nYour choice (1, 2, or 3):")
+    if depth_choice == "1":
+        DEFAULT_DEPTH_MINIMAX = 2
+        DEFAULT_DEPTH_ALPHABETA = 4
+    elif depth_choice == "2":
+        DEFAULT_DEPTH_MINIMAX = 3
+        DEFAULT_DEPTH_ALPHABETA = 6
+    elif depth_choice == "3":
+        DEFAULT_DEPTH_MINIMAX = 4
+        DEFAULT_DEPTH_ALPHABETA = 8
+
     # Thiết lập tham số
     parser = argparse.ArgumentParser(description="Caro AI Project")
     parser.add_argument("--ui", type=str, default=DEFAULT_UI, choices=["console", "pygame"], help="User interface to use")
@@ -31,7 +44,6 @@ def main():
     args = parser.parse_args()
 
     if args.benchmark:
-        from source_code.benchmark.benchmark_runner import run_benchmarks
         run_benchmarks()
         sys.exit(0)
 
