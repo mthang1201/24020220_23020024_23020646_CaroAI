@@ -28,8 +28,8 @@ class PyGameUI:
 
     def _init_pygame(self, board_size: int):
         pygame.init()
-        window_size = board_size * CELL_SIZE + 2 * MARGIN
-        self.window = pygame.display.set_mode((window_size, window_size))
+        window_size = board_size * CELL_SIZE + 2 * MARGIN # Kích thước bằng số ô * kích thước ô + 2 bên của lề
+        self.window = pygame.display.set_mode((window_size, window_size)) # Tạo cửa sổ vuông
         pygame.display.set_caption("Caro AI")
         self.font = pygame.font.SysFont("arial", 24)
 
@@ -89,7 +89,7 @@ class PyGameUI:
             
             # AI Turn
             if not state.is_terminal and state.current_player == AI:
-                pygame.time.delay(100) # Small delay for better UX
+                pygame.time.delay(10) # Small delay for better UX
                 if self.ai:
                     result = self.ai.choose_move(state)
                     if result.best_move:

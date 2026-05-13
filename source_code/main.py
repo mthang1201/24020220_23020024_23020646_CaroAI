@@ -26,12 +26,12 @@ def main():
     if depth_choice == "1":
         DEFAULT_DEPTH_MINIMAX = 2
         DEFAULT_DEPTH_ALPHABETA = 4
-    elif depth_choice == "2":
-        DEFAULT_DEPTH_MINIMAX = 3
-        DEFAULT_DEPTH_ALPHABETA = 6
     elif depth_choice == "3":
         DEFAULT_DEPTH_MINIMAX = 4
         DEFAULT_DEPTH_ALPHABETA = 8
+    else:
+        DEFAULT_DEPTH_MINIMAX = 3
+        DEFAULT_DEPTH_ALPHABETA = 6
 
     # Thiết lập tham số
     parser = argparse.ArgumentParser(description="Caro AI Project")

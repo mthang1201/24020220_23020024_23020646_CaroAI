@@ -6,9 +6,9 @@ from source_code.config import EMPTY, HUMAN, AI
 class GameState:
     def __init__(self, board_size: int = None):
         self.board = Board(board_size) if board_size else Board()
-        self.current_player = HUMAN
+        self.current_player = AI
         self.move_history: List[Tuple[int, int, int]] = [] # (row, col, player)
-        self.is_terminal = False
+        self.is_terminal = False # Chưa kết thúc
         self.winner: Optional[int] = None
         
     def get_opponent(self, player: int) -> int:
