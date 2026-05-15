@@ -22,6 +22,9 @@ DEFAULT_UI = "console"
 # Search Settings
 DEFAULT_DEPTH_MINIMAX = 3
 DEFAULT_DEPTH_ALPHABETA = 4
+DEFAULT_TIME_LIMIT_EASY = 2.0
+DEFAULT_TIME_LIMIT_MEDIUM = 4.0
+DEFAULT_TIME_LIMIT_HARD = 6.0
 
 # Move Generation Constraints
 # Generate only cells within distance <= MAX_CANDIDATE_DISTANCE from existing pieces
