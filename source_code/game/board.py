@@ -4,7 +4,11 @@ from source_code.config import BOARD_SIZE, EMPTY
 class Board:
     def __init__(self, size: int = BOARD_SIZE):
         self.size = size
+
+        # Tạo bàn cờ với kích thước size x size, ban đầu tất cả các ô đều là EMPTY (0)
         self.grid: List[List[int]] = [[EMPTY for _ in range(size)] for _ in range(size)]
+        
+        # Số lượng quân cờ trên bàn cờ
         self.piece_count = 0
 
     def is_valid_pos(self, r: int, c: int) -> bool:

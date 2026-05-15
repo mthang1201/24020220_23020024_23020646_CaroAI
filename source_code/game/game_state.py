@@ -5,6 +5,7 @@ from source_code.config import EMPTY, HUMAN, AI
 
 class GameState:
     def __init__(self, board_size: int = None):
+        # Tạo bàn cờ với kích thước board_size, nếu không truyền thì lấy mặc định trong Board
         self.board = Board(board_size) if board_size else Board()
         self.current_player = AI
         self.move_history: List[Tuple[int, int, int]] = [] # (row, col, player)

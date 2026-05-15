@@ -6,10 +6,10 @@ from source_code.ai.evaluation import Evaluator
 from source_code.ai.move_ordering import MoveOrderer
 from source_code.game.game_state import GameState
 from source_code.game.move_generator import MoveGenerator
-from source_code.config import DEFAULT_DEPTH_MINIMAX, AI, HUMAN, EMPTY
+from source_code.config import DEFAULT_DEPTH_MINIMAX, AI, HUMAN, EMPTY, DEFAULT_TIME_LIMIT
 
 class MinimaxAI(BaseAI):
-    def __init__(self, depth: int = DEFAULT_DEPTH_MINIMAX, time_limit: float = 0.0):
+    def __init__(self, depth: int = DEFAULT_DEPTH_MINIMAX, time_limit: float = DEFAULT_TIME_LIMIT):
         self.depth = depth
         self.time_limit = time_limit
         self.nodes_explored = 0

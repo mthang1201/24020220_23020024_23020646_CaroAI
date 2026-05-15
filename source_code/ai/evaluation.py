@@ -26,7 +26,9 @@ class Evaluator:
                     continue
                 
                 player = board.grid[r][c]
-                multiplier = 1.0 if player == AI else -1.0
+
+                # Xét thế cờ, nếu là AI thì cộng, nếu là Human thì trừ để đánh giá
+                multiplier = 1.0 if player == AI else -1.0 
                 
                 for dr, dc in directions:
                     # To avoid double counting, only evaluate lines originating from the 'start'
