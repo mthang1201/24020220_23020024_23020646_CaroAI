@@ -14,7 +14,10 @@ def build_game_state_from_grid(grid) -> GameState:
         for c in range(BOARD_SIZE):
             if grid[r][c] != 0:
                 state.board.grid[r][c] = grid[r][c]
-                state.board.piece_count += 1
+    
+    # Quan trọng: Cập nhật các ô ứng viên sau khi nạp grid trực tiếp
+    state.board.recalculate_candidates()
+    
     # For testing, we just set the AI to move next
     state.current_player = AI
     return state

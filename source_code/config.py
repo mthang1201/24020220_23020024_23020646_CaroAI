@@ -21,7 +21,7 @@ DEFAULT_UI = "console"
 
 # Search Settings
 DEFAULT_DEPTH_MINIMAX = 3
-DEFAULT_DEPTH_ALPHABETA = 5
+DEFAULT_DEPTH_ALPHABETA = 6
 DEFAULT_TIME_LIMIT = 5
 
 # Move Generation Constraints

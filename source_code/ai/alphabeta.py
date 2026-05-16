@@ -33,6 +33,16 @@ class AlphaBetaAI(BaseAI):
                 execution_time=time.perf_counter() - self.start_time
             )
 
+        # Tối ưu: Nếu chỉ có duy nhất 1 nước đi khả thi (ví dụ nước đầu tiên vào tâm), 
+        # đi luôn không cần tính toán sâu.
+        if len(candidates) == 1:
+            return SearchResult(
+                best_move=candidates[0],
+                evaluation_score=0.0,
+                nodes_explored=1,
+                execution_time=time.perf_counter() - self.start_time
+            )
+
         best_overall_move = candidates[0]
         best_overall_score = -math.inf
         

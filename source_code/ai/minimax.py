@@ -33,6 +33,15 @@ class MinimaxAI(BaseAI):
                 execution_time=time.perf_counter() - self.start_time
             )
 
+        # Tối ưu: Nếu chỉ có duy nhất 1 nước đi khả thi, đi luôn.
+        if len(candidates) == 1:
+            return SearchResult(
+                best_move=candidates[0],
+                evaluation_score=0.0,
+                nodes_explored=1,
+                execution_time=time.perf_counter() - self.start_time
+            )
+
         best_overall_move = candidates[0]
         best_overall_score = -math.inf
         
