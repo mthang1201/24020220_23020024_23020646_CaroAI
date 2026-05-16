@@ -66,8 +66,15 @@ class PyGameUI:
                 BLACK
             )
 
+            time_text = self.font.render(
+                f"Time: {ai_result.execution_time:.2f}s",
+                True,
+                BLACK
+              )
+
             self.window.blit(score_text, (10, 10))
             self.window.blit(nodes_text, (10, 40))
+            self.window.blit(time_text, (10, 70))
 
         pygame.display.flip()
 
@@ -112,6 +119,10 @@ class PyGameUI:
                     if ai_result.best_move:
                         r, c = ai_result.best_move
                         state.apply_move(r, c)
+                        
+                        # Re-evaluate current board state score to show current score instead of predicted
+                        from source_code.ai.evaluation import Evaluator
+                        ai_result.evaluation_score = Evaluator.evaluate(state.board)
                 self.draw_board(state, ai_result)
                 
             if state.is_terminal:

@@ -28,6 +28,7 @@ class ConsoleUI:
         if ai_result is not None:
             print(f"Score: {ai_result.evaluation_score:.2f}")
             print(f"Nodes: {ai_result.nodes_explored}")
+            print(f"Time: {ai_result.execution_time:.4f}s")
         print()
 
     def get_human_move(self, state: GameState) -> tuple:
@@ -79,6 +80,10 @@ class ConsoleUI:
                         r, c = ai_result.best_move
                         print(f"AI plays: {r} {c}")
                         state.apply_move(r, c)
+                        
+                        # Re-evaluate current board state score
+                        from source_code.ai.evaluation import Evaluator
+                        ai_result.evaluation_score = Evaluator.evaluate(state.board)
                     else:
                         print("AI failed to find a move.")
                         break
