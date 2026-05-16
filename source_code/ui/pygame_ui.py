@@ -33,7 +33,7 @@ class PyGameUI:
         pygame.display.set_caption("Caro AI")
         self.font = pygame.font.SysFont("arial", 24)
 
-    def draw_board(self, state: GameState):
+    def draw_board(self, state: GameState, ai_result=None):
         self.window.fill(WHITE)
         size = state.board.size
         
@@ -51,7 +51,24 @@ class PyGameUI:
                     self._draw_x(r, c)
                 elif state.board.grid[r][c] == AI:
                     self._draw_o(r, c)
-                    
+
+        # Thông tin của AI
+        if ai_result is not None:
+            score_text = self.font.render(
+                f"Score: {ai_result.evaluation_score:.2f}",
+                True,
+                BLACK
+            )
+
+            nodes_text = self.font.render(
+                f"Nodes: {ai_result.nodes_explored}",
+                True,
+                BLACK
+            )
+
+            self.window.blit(score_text, (10, 10))
+            self.window.blit(nodes_text, (10, 40))
+
         pygame.display.flip()
 
     def _draw_x(self, r: int, c: int):
@@ -67,9 +84,9 @@ class PyGameUI:
         radius = CELL_SIZE // 3
         pygame.draw.circle(self.window, RED, (center_x, center_y), radius, 3)
 
-    def run(self, state: GameState):
+    def run(self, state: GameState, ai_result=None):
         self._init_pygame(state.board.size)
-        self.draw_board(state)
+        self.draw_board(state, ai_result)
         
         running = True
         while running:
@@ -91,11 +108,11 @@ class PyGameUI:
             if not state.is_terminal and state.current_player == AI:
                 pygame.time.delay(10) # Small delay for better UX
                 if self.ai:
-                    result = self.ai.choose_move(state)
-                    if result.best_move:
-                        r, c = result.best_move
+                    ai_result = self.ai.choose_move(state)
+                    if ai_result.best_move:
+                        r, c = ai_result.best_move
                         state.apply_move(r, c)
-                self.draw_board(state)
+                self.draw_board(state, ai_result)
                 
             if state.is_terminal:
                 self.draw_board(state)

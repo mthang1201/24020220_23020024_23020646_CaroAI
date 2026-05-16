@@ -10,7 +10,7 @@ class ConsoleUI:
         """Clear the console screen."""
         os.system('cls' if os.name == 'nt' else 'clear')
 
-    def draw_board(self, state: GameState):
+    def draw_board(self, state: GameState, ai_result=None):
         """Render the board to the console."""
         size = state.board.size
         # Print column headers
@@ -24,6 +24,10 @@ class ConsoleUI:
                 symbol = SYMBOLS.get(piece, '.')
                 row_str += f" {symbol} "
             print(row_str)
+
+        if ai_result is not None:
+            print(f"Score: {ai_result.evaluation_score:.2f}")
+            print(f"Nodes: {ai_result.nodes_explored}")
         print()
 
     def get_human_move(self, state: GameState) -> tuple:
@@ -53,14 +57,14 @@ class ConsoleUI:
                 print("\nGame aborted by user.")
                 exit(0)
 
-    def run(self, state: GameState):
+    def run(self, state: GameState, ai_result=None):
         """Main game loop for Console UI."""
         self.clear_screen()
         print("Welcome to Caro AI Console Mode!")
         print("You are 'X' and AI is 'O'. Get 4 in a row to win!\n")
         
         while not state.is_terminal:
-            self.draw_board(state)
+            self.draw_board(state, ai_result)
             player_symbol = SYMBOLS[state.current_player]
             
             if state.current_player == HUMAN:
@@ -70,9 +74,9 @@ class ConsoleUI:
             else:
                 print(f"AI's Turn ({player_symbol})... thinking")
                 if self.ai:
-                    result = self.ai.choose_move(state)
-                    if result and result.best_move:
-                        r, c = result.best_move
+                    ai_result = self.ai.choose_move(state)
+                    if ai_result and ai_result.best_move:
+                        r, c = ai_result.best_move
                         print(f"AI plays: {r} {c}")
                         state.apply_move(r, c)
                     else:
@@ -83,7 +87,7 @@ class ConsoleUI:
                     break
             self.clear_screen()
 
-        self.draw_board(state)
+        self.draw_board(state, ai_result)
         if state.winner == HUMAN:
             print("Congratulations! You won!")
         elif state.winner == AI:
