@@ -66,7 +66,8 @@ class MinimaxAI(BaseAI):
             best_move=best_overall_move,
             evaluation_score=best_overall_score,
             nodes_explored=self.nodes_explored,
-            execution_time=execution_time
+            execution_time=execution_time,
+            depth=self.depth
         )
 
     def _minimax(self, game_state: GameState, depth: int, is_maximizing: bool) -> float:

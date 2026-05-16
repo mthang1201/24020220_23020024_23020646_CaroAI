@@ -69,7 +69,8 @@ class AlphaBetaAI(BaseAI):
             best_move=best_overall_move,
             evaluation_score=best_overall_score,
             nodes_explored=self.nodes_explored,
-            execution_time=execution_time
+            execution_time=execution_time,
+            depth=self.depth
         )
 
     def _alphabeta(self, game_state: GameState, depth: int, alpha: float, beta: float, is_maximizing: bool) -> float:
