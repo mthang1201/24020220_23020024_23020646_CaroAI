@@ -33,6 +33,16 @@ class AlphaBetaAI(BaseAI):
                 execution_time=time.perf_counter() - self.start_time
             )
 
+        # Optimization: If only one move is possible, take it immediately
+        if len(candidates) == 1:
+            return SearchResult(
+                best_move=candidates[0],
+                evaluation_score=0.0,  # Score is not critical when it's the only choice
+                nodes_explored=1,
+                execution_time=time.perf_counter() - self.start_time,
+                depth=1
+            )
+
         best_overall_move = candidates[0]
         best_overall_score = -math.inf
         

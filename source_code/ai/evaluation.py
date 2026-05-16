@@ -1,122 +1,231 @@
 from source_code.game.board import Board
-from source_code.config import HUMAN, AI
-
-# ---------------------------------------------------------------------------
-# Heuristic weight constants
-# ---------------------------------------------------------------------------
-# SCORE_WIN    – assigned when 4+ consecutive pieces already exist.
-#                Used to ensure that near-terminal states dominate the search.
-#                (Terminal wins return ±inf; this catches patterns at depth 0.)
-SCORE_WIN = 1_000_000.0
-
-# SCORE_OPEN_3 – three consecutive pieces with BOTH ends open.
-#                This is an extremely dangerous threat because the opponent
-#                cannot block both sides in one move → high priority.
-SCORE_OPEN_3 = 50_000.0
-
-# SCORE_CLOSED_3 – three consecutive pieces with only ONE end open.
-#                  Still a strong threat but easier to defend.
-SCORE_CLOSED_3 = 10_000.0
-
-# SCORE_OPEN_2 – two consecutive pieces with both ends open.
-#                Represents a developing threat; score high enough to
-#                encourage building sequences.
-SCORE_OPEN_2 = 5_000.0
-
-# SCORE_CLOSED_2 – two consecutive pieces with only one end open.
-#                  Minimal threat but still worth a small bonus/penalty.
-SCORE_CLOSED_2 = 100.0
+from source_code.config import AI, HUMAN, EMPTY
 
 
 class Evaluator:
+
+    # =========================================
+    # SCORE TABLE
+    # =========================================
+
+    FIVE = 10000000
+
+    OPEN_FOUR = 1000000
+    CLOSED_FOUR = 100000
+
+    OPEN_THREE = 10000
+    CLOSED_THREE = 1000
+
+    OPEN_TWO = 100
+    CLOSED_TWO = 10
+
+    DIRECTIONS = [
+        (0, 1),   # horizontal
+        (1, 0),   # vertical
+        (1, 1),   # diagonal \
+        (1, -1)   # diagonal /
+    ]
+
     @staticmethod
-    def evaluate(board: Board) -> float:
-        """
-        Evaluate the board from the perspective of the AI player.
+    def evaluate(board: Board) -> int:
 
-        Returns a float score:
-          - Positive  → board favors AI
-          - Negative  → board favors HUMAN
-          - 0         → roughly balanced
+        ai_score = 0
+        human_score = 0
 
-        Scoring logic per direction per line-start:
-          count >= 4  → ±SCORE_WIN   (4-in-a-row found at eval depth)
-          count == 3, both ends open → ±SCORE_OPEN_3
-          count == 3, one end open   → ±SCORE_CLOSED_3
-          count == 2, both ends open → ±SCORE_OPEN_2
-          count == 2, one end open   → ±SCORE_CLOSED_2
-
-        Threat asymmetry:
-          The weight constants are the same for AI and HUMAN, but the
-          MULTIPLIER sign differs (+1 for AI, -1 for HUMAN).
-          This means blocking a human OPEN_3 saves 50 000 points,
-          which correctly prioritises defence when the human threatens to win.
-
-        Move ordering optimisation:
-          Moves are pre-sorted by center proximity (see move_ordering.py)
-          before Minimax/Alpha-Beta is called, so the evaluation function
-          itself does not need to handle ordering.
-        """
-        score = 0.0
-
-        # Scan all four directions (each covers its mirror by starting from line origin)
-        directions = [(0, 1), (1, 0), (1, 1), (1, -1)]
+        visited_ai = set()
+        visited_human = set()
 
         for r in range(board.size):
             for c in range(board.size):
-                if board.grid[r][c] == 0:
+
+                piece = board.grid[r][c]
+
+                if piece == EMPTY:
                     continue
 
-                player = board.grid[r][c]
+                # =========================================
+                # AI
+                # =========================================
 
-                # Positive multiplier for AI pieces, negative for HUMAN pieces.
-                # This single sign flip makes the evaluation symmetric.
-                multiplier = 1.0 if player == AI else -1.0
+                if piece == AI:
 
-                for dr, dc in directions:
-                    # Skip if this cell is NOT the start of a line in this direction
-                    # (avoids double-counting the same line segment).
-                    prev_r, prev_c = r - dr, c - dc
-                    if board.is_valid_pos(prev_r, prev_c) and board.grid[prev_r][prev_c] == player:
-                        continue
+                    for dr, dc in Evaluator.DIRECTIONS:
 
-                    count = 1
-                    open_ends = 0
+                        key = (r, c, dr, dc)
 
-                    # Check backward open end (cell before the line start)
-                    if board.is_empty(prev_r, prev_c):
-                        open_ends += 1
+                        if key in visited_ai:
+                            continue
 
-                    # Count consecutive pieces forward
-                    nr, nc = r + dr, c + dc
-                    while board.is_valid_pos(nr, nc) and board.grid[nr][nc] == player:
-                        count += 1
-                        nr += dr
-                        nc += dc
+                        score, cells = Evaluator.evaluate_direction(
+                            board,
+                            r,
+                            c,
+                            dr,
+                            dc,
+                            AI
+                        )
 
-                    # Check forward open end (cell after the line end)
-                    if board.is_empty(nr, nc):
-                        open_ends += 1
+                        ai_score += score
 
-                    # Apply heuristic score based on line length and openness
-                    if count >= 4:
-                        # 4-in-a-row: effectively a win; dominate all other terms
-                        score += SCORE_WIN * multiplier
-                    elif count == 3:
-                        if open_ends == 2:
-                            # Open three – cannot be fully blocked in one move
-                            score += SCORE_OPEN_3 * multiplier
-                        elif open_ends == 1:
-                            # Closed three – dangerous but one move can block it
-                            score += SCORE_CLOSED_3 * multiplier
-                        # open_ends == 0: completely blocked → no score
-                    elif count == 2:
-                        if open_ends == 2:
-                            # Open two – developing threat worth rewarding
-                            score += SCORE_OPEN_2 * multiplier
-                        elif open_ends == 1:
-                            # Closed two – minimal threat
-                            score += SCORE_CLOSED_2 * multiplier
-                        # open_ends == 0: completely blocked → no score
+                        for cell in cells:
+                            visited_ai.add(
+                                (cell[0], cell[1], dr, dc)
+                            )
 
-        return score
+                # =========================================
+                # HUMAN
+                # =========================================
+
+                elif piece == HUMAN:
+
+                    for dr, dc in Evaluator.DIRECTIONS:
+
+                        key = (r, c, dr, dc)
+
+                        if key in visited_human:
+                            continue
+
+                        score, cells = Evaluator.evaluate_direction(
+                            board,
+                            r,
+                            c,
+                            dr,
+                            dc,
+                            HUMAN
+                        )
+
+                        human_score += score
+
+                        for cell in cells:
+                            visited_human.add(
+                                (cell[0], cell[1], dr, dc)
+                            )
+
+        return ai_score - human_score
+
+    @staticmethod
+    def evaluate_direction(
+        board: Board,
+        r: int,
+        c: int,
+        dr: int,
+        dc: int,
+        player: int
+    ):
+
+        size = board.size
+        grid = board.grid
+
+        cells = [(r, c)]
+
+        count = 1
+
+        # =========================================
+        # FORWARD
+        # =========================================
+
+        nr = r + dr
+        nc = c + dc
+
+        while (
+            0 <= nr < size and
+            0 <= nc < size and
+            grid[nr][nc] == player
+        ):
+            count += 1
+            cells.append((nr, nc))
+
+            nr += dr
+            nc += dc
+
+        forward_open = (
+            0 <= nr < size and
+            0 <= nc < size and
+            grid[nr][nc] == EMPTY
+        )
+
+        # =========================================
+        # BACKWARD
+        # =========================================
+
+        nr = r - dr
+        nc = c - dc
+
+        while (
+            0 <= nr < size and
+            0 <= nc < size and
+            grid[nr][nc] == player
+        ):
+            count += 1
+            cells.append((nr, nc))
+
+            nr -= dr
+            nc -= dc
+
+        backward_open = (
+            0 <= nr < size and
+            0 <= nc < size and
+            grid[nr][nc] == EMPTY
+        )
+
+        # =========================================
+        # OPEN ENDS
+        # =========================================
+
+        open_ends = 0
+
+        if forward_open:
+            open_ends += 1
+
+        if backward_open:
+            open_ends += 1
+
+        # =========================================
+        # SCORE
+        # =========================================
+
+        score = Evaluator.pattern_score(
+            count,
+            open_ends
+        )
+
+        return score, cells
+
+    @staticmethod
+    def pattern_score(
+        count: int,
+        open_ends: int
+    ) -> int:
+
+        # FIVE
+        if count >= 5:
+            return Evaluator.FIVE
+
+        # FOUR
+        if count == 4:
+
+            if open_ends == 2:
+                return Evaluator.OPEN_FOUR
+
+            if open_ends == 1:
+                return Evaluator.CLOSED_FOUR
+
+        # THREE
+        if count == 3:
+
+            if open_ends == 2:
+                return Evaluator.OPEN_THREE
+
+            if open_ends == 1:
+                return Evaluator.CLOSED_THREE
+
+        # TWO
+        if count == 2:
+
+            if open_ends == 2:
+                return Evaluator.OPEN_TWO
+
+            if open_ends == 1:
+                return Evaluator.CLOSED_TWO
+
+        return 0

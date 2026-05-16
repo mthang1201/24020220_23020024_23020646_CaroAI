@@ -51,25 +51,33 @@ class Board:
         return False
 
     def undo_move(self, r: int, c: int):
-        """
-        Remove a piece and update candidate moves.
-        """
         if self.is_valid_pos(r, c) and self.grid[r][c] != EMPTY:
+
             self.grid[r][c] = EMPTY
             self.piece_count -= 1
-            
-            # Nếu ô này có quân cờ xung quanh, nó trở thành ô ứng viên
-            if self.neighbor_counts[r][c] > 0:
-                self.candidate_moves.add((r, c))
-            
+
+            # Giảm neighbor counts trước
             for dr in range(-2, 3):
                 for dc in range(-2, 3):
-                    if dr == 0 and dc == 0: continue
+
+                    if dr == 0 and dc == 0:
+                        continue
+
                     nr, nc = r + dr, c + dc
+
                     if self.is_valid_pos(nr, nc):
+
                         self.neighbor_counts[nr][nc] -= 1
-                        if self.neighbor_counts[nr][nc] == 0 and (nr, nc) in self.candidate_moves:
+
+                        if (
+                            self.neighbor_counts[nr][nc] == 0
+                            and (nr, nc) in self.candidate_moves
+                        ):
                             self.candidate_moves.remove((nr, nc))
+
+            # Sau khi update xong mới xét ô hiện tại
+            if self.neighbor_counts[r][c] > 0:
+                self.candidate_moves.add((r, c))
 
     def is_full(self) -> bool:
         """Check if the board is completely filled."""
