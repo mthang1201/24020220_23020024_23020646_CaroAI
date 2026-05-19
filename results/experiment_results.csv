@@ -1,37 +1,37 @@
 Test Case,Board Size,Depth,Algorithm,Best Move,Score,States Evaluated,Runtime(ms),Same Move as Minimax?,State Reduction (%)
-Opening State,9x9,1,Minimax,"(5, 4)",0.00,24,1.23,,
-Opening State,9x9,1,Alpha-Beta,"(5, 4)",0.00,24,1.07,Yes,0.0
-Opening State,9x9,2,Minimax,"(5, 4)",-5000.00,864,34.15,,
-Opening State,9x9,2,Alpha-Beta,"(5, 4)",-5000.00,101,3.35,Yes,88.3
-Opening State,9x9,3,Minimax,"(5, 4)",0.00,34728,973.08,,
-Opening State,9x9,3,Alpha-Beta,"(5, 4)",0.00,1711,48.50,Yes,95.1
-Mid-game State,9x9,1,Minimax,"(5, 5)",45000.00,32,1.12,,
-Mid-game State,9x9,1,Alpha-Beta,"(5, 5)",45000.00,32,1.07,Yes,0.0
-Mid-game State,9x9,2,Minimax,"(5, 4)",0.00,1321,47.99,,
-Mid-game State,9x9,2,Alpha-Beta,"(5, 4)",0.00,131,5.33,Yes,90.1
-Mid-game State,9x9,3,Minimax,"(5, 5)",inf,58384,2360.22,,
-Mid-game State,9x9,3,Alpha-Beta,"(5, 5)",inf,530,22.93,Yes,99.1
-Immediate AI Win,9x9,1,Minimax,"(2, 5)",inf,40,1.47,,
-Immediate AI Win,9x9,1,Alpha-Beta,"(2, 5)",inf,40,1.44,Yes,0.0
-Immediate AI Win,9x9,2,Minimax,"(2, 5)",inf,40,1.53,,
-Immediate AI Win,9x9,2,Alpha-Beta,"(2, 5)",inf,40,1.59,Yes,0.0
-Immediate AI Win,9x9,3,Minimax,"(2, 5)",inf,40,1.53,,
-Immediate AI Win,9x9,3,Alpha-Beta,"(2, 5)",inf,40,1.66,Yes,0.0
-Human Near-Win (Threat),9x9,1,Minimax,"(6, 4)",0.00,36,1.42,,
-Human Near-Win (Threat),9x9,1,Alpha-Beta,"(6, 4)",0.00,36,1.40,Yes,0.0
-Human Near-Win (Threat),9x9,2,Minimax,"(6, 4)",-inf,1502,59.17,,
-Human Near-Win (Threat),9x9,2,Alpha-Beta,"(6, 4)",-inf,198,7.46,Yes,86.8
-Human Near-Win (Threat),9x9,3,Minimax,"(6, 4)",-inf,62255,2701.27,,
-Human Near-Win (Threat),9x9,3,Alpha-Beta,"(6, 4)",-inf,3304,144.20,Yes,94.7
-Dense Tactical Board,9x9,1,Minimax,"(6, 5)",-35000.00,40,2.13,,
-Dense Tactical Board,9x9,1,Alpha-Beta,"(6, 5)",-35000.00,40,2.10,Yes,0.0
-Dense Tactical Board,9x9,2,Minimax,"(6, 5)",-inf,1888,98.47,,
-Dense Tactical Board,9x9,2,Alpha-Beta,"(6, 5)",-inf,325,17.30,Yes,82.8
-Dense Tactical Board,9x9,3,Minimax,"(6, 5)",-inf,83884,4896.29,,
-Dense Tactical Board,9x9,3,Alpha-Beta,"(6, 5)",-inf,3237,189.54,Yes,96.1
-Many Legal Moves,9x9,1,Minimax,"(5, 4)",50000.00,71,3.60,,
-Many Legal Moves,9x9,1,Alpha-Beta,"(5, 4)",50000.00,71,3.76,Yes,0.0
-Many Legal Moves,9x9,2,Minimax,"(5, 4)",5000.00,5140,279.42,,
-Many Legal Moves,9x9,2,Alpha-Beta,"(5, 4)",5000.00,282,18.01,Yes,94.5
-Many Legal Moves,9x9,3,Minimax,"(5, 4)",inf,358655,21428.74,,
-Many Legal Moves,9x9,3,Alpha-Beta,"(5, 4)",inf,1349,82.75,Yes,99.6
+Opening State,9x9,1,Minimax,None,0.00,0,0.61,,
+Opening State,9x9,1,Alpha-Beta,None,0.00,0,0.02,Yes,
+Opening State,9x9,2,Minimax,None,0.00,0,0.03,,
+Opening State,9x9,2,Alpha-Beta,None,0.00,0,0.03,Yes,
+Opening State,9x9,3,Minimax,None,0.00,0,0.03,,
+Opening State,9x9,3,Alpha-Beta,None,0.00,0,0.03,Yes,
+Mid-game State,9x9,1,Minimax,None,0.00,0,0.03,,
+Mid-game State,9x9,1,Alpha-Beta,None,0.00,0,0.03,Yes,
+Mid-game State,9x9,2,Minimax,None,0.00,0,0.03,,
+Mid-game State,9x9,2,Alpha-Beta,None,0.00,0,0.03,Yes,
+Mid-game State,9x9,3,Minimax,None,0.00,0,0.03,,
+Mid-game State,9x9,3,Alpha-Beta,None,0.00,0,0.03,Yes,
+Immediate AI Win,9x9,1,Minimax,None,0.00,0,0.02,,
+Immediate AI Win,9x9,1,Alpha-Beta,None,0.00,0,0.02,Yes,
+Immediate AI Win,9x9,2,Minimax,None,0.00,0,0.03,,
+Immediate AI Win,9x9,2,Alpha-Beta,None,0.00,0,0.03,Yes,
+Immediate AI Win,9x9,3,Minimax,None,0.00,0,0.02,,
+Immediate AI Win,9x9,3,Alpha-Beta,None,0.00,0,0.02,Yes,
+Human Near-Win (Threat),9x9,1,Minimax,None,0.00,0,0.02,,
+Human Near-Win (Threat),9x9,1,Alpha-Beta,None,0.00,0,0.02,Yes,
+Human Near-Win (Threat),9x9,2,Minimax,None,0.00,0,0.02,,
+Human Near-Win (Threat),9x9,2,Alpha-Beta,None,0.00,0,0.02,Yes,
+Human Near-Win (Threat),9x9,3,Minimax,None,0.00,0,0.02,,
+Human Near-Win (Threat),9x9,3,Alpha-Beta,None,0.00,0,0.02,Yes,
+Dense Tactical Board,9x9,1,Minimax,None,0.00,0,0.02,,
+Dense Tactical Board,9x9,1,Alpha-Beta,None,0.00,0,0.02,Yes,
+Dense Tactical Board,9x9,2,Minimax,None,0.00,0,0.02,,
+Dense Tactical Board,9x9,2,Alpha-Beta,None,0.00,0,0.02,Yes,
+Dense Tactical Board,9x9,3,Minimax,None,0.00,0,0.02,,
+Dense Tactical Board,9x9,3,Alpha-Beta,None,0.00,0,0.02,Yes,
+Many Legal Moves,9x9,1,Minimax,None,0.00,0,0.02,,
+Many Legal Moves,9x9,1,Alpha-Beta,None,0.00,0,0.02,Yes,
+Many Legal Moves,9x9,2,Minimax,None,0.00,0,0.02,,
+Many Legal Moves,9x9,2,Alpha-Beta,None,0.00,0,0.02,Yes,
+Many Legal Moves,9x9,3,Minimax,None,0.00,0,0.02,,
+Many Legal Moves,9x9,3,Alpha-Beta,None,0.00,0,0.02,Yes,
