@@ -150,16 +150,25 @@ def run_level2():
     print("    3  Compare Minimax vs Alpha-Beta on the current board state")
     choice = input("  Your choice (default 2): ").strip() or "2"
 
-    if choice == "1":
-        ai = MinimaxAI(depth=depth, time_limit=0)
-        from source_code.ui.console_ui import ConsoleUI
-        ConsoleUI(ai=ai, algo_name="Minimax").run(GameState(board_size=size))
-
-    elif choice == "3":
+    if choice == "3":
         _run_compare_mode(size=size, depth=depth)
-
     else:
-        # Default: Alpha-Beta
-        ai = AlphaBetaAI(depth=depth, time_limit=0)
-        from source_code.ui.console_ui import ConsoleUI
-        ConsoleUI(ai=ai, algo_name="Alpha-Beta").run(GameState(board_size=size))
+        # Ask for UI type for standard playing options
+        ui_type = ask_level.ask_ui()
+
+        if choice == "1":
+            ai = MinimaxAI(depth=depth, time_limit=0)
+            algo_name = "Minimax"
+        else:
+            # Default: Alpha-Beta
+            ai = AlphaBetaAI(depth=depth, time_limit=0)
+            algo_name = "Alpha-Beta"
+
+        if ui_type == "pygame":
+            from source_code.ui.pygame_ui import PyGameUI
+            ui = PyGameUI(ai=ai)
+        else:
+            from source_code.ui.console_ui import ConsoleUI
+            ui = ConsoleUI(ai=ai, algo_name=algo_name)
+
+        ui.run(GameState(board_size=size))

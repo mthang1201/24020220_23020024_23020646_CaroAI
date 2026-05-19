@@ -35,9 +35,23 @@ def _ask_depth(default: int, label: str = "AI") -> int:
         return default
 
 
+def _ask_ui() -> str:
+    """Prompt for UI choice; default console."""
+    print("\n  Choose User Interface (UI):")
+    print("    1  Console UI (Text-based)")
+    print("    2  PyGame UI (Graphical GUI)")
+    choice = input("  Your choice (default 1): ").strip() or "1"
+    if choice == "2":
+        return "pygame"
+    return "console"
+
+
 # Public API
 def ask_board_size() -> int:
     return _ask_board_size()
 
 def ask_depth(default: int, label: str = "AI") -> int:
     return _ask_depth(default, label)
+
+def ask_ui() -> str:
+    return _ask_ui()

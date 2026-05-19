@@ -14,10 +14,15 @@ def run_level1():
 
     size  = ask_level.ask_board_size()
     depth = ask_level.ask_depth(DEFAULT_DEPTH_MINIMAX, label="Minimax")
+    ui_type = ask_level.ask_ui()
 
     ai    = MinimaxAI(depth=depth, time_limit=0)
     state = GameState(board_size=size)
 
-    from source_code.ui.console_ui import ConsoleUI
-    ui = ConsoleUI(ai=ai, algo_name="Minimax")
+    if ui_type == "pygame":
+        from source_code.ui.pygame_ui import PyGameUI
+        ui = PyGameUI(ai=ai)
+    else:
+        from source_code.ui.console_ui import ConsoleUI
+        ui = ConsoleUI(ai=ai, algo_name="Minimax")
     ui.run(state)
