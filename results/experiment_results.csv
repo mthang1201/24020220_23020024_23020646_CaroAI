@@ -1,37 +1,37 @@
 Test Case,Board Size,Depth,Algorithm,Best Move,Score,States Evaluated,Runtime(ms),Same Move as Minimax?,State Reduction (%)
-Opening State,9x9,1,Minimax,None,0.00,0,0.61,,
-Opening State,9x9,1,Alpha-Beta,None,0.00,0,0.02,Yes,
-Opening State,9x9,2,Minimax,None,0.00,0,0.03,,
-Opening State,9x9,2,Alpha-Beta,None,0.00,0,0.03,Yes,
-Opening State,9x9,3,Minimax,None,0.00,0,0.03,,
-Opening State,9x9,3,Alpha-Beta,None,0.00,0,0.03,Yes,
-Mid-game State,9x9,1,Minimax,None,0.00,0,0.03,,
-Mid-game State,9x9,1,Alpha-Beta,None,0.00,0,0.03,Yes,
-Mid-game State,9x9,2,Minimax,None,0.00,0,0.03,,
-Mid-game State,9x9,2,Alpha-Beta,None,0.00,0,0.03,Yes,
-Mid-game State,9x9,3,Minimax,None,0.00,0,0.03,,
-Mid-game State,9x9,3,Alpha-Beta,None,0.00,0,0.03,Yes,
-Immediate AI Win,9x9,1,Minimax,None,0.00,0,0.02,,
-Immediate AI Win,9x9,1,Alpha-Beta,None,0.00,0,0.02,Yes,
-Immediate AI Win,9x9,2,Minimax,None,0.00,0,0.03,,
-Immediate AI Win,9x9,2,Alpha-Beta,None,0.00,0,0.03,Yes,
-Immediate AI Win,9x9,3,Minimax,None,0.00,0,0.02,,
-Immediate AI Win,9x9,3,Alpha-Beta,None,0.00,0,0.02,Yes,
-Human Near-Win (Threat),9x9,1,Minimax,None,0.00,0,0.02,,
-Human Near-Win (Threat),9x9,1,Alpha-Beta,None,0.00,0,0.02,Yes,
-Human Near-Win (Threat),9x9,2,Minimax,None,0.00,0,0.02,,
-Human Near-Win (Threat),9x9,2,Alpha-Beta,None,0.00,0,0.02,Yes,
-Human Near-Win (Threat),9x9,3,Minimax,None,0.00,0,0.02,,
-Human Near-Win (Threat),9x9,3,Alpha-Beta,None,0.00,0,0.02,Yes,
-Dense Tactical Board,9x9,1,Minimax,None,0.00,0,0.02,,
-Dense Tactical Board,9x9,1,Alpha-Beta,None,0.00,0,0.02,Yes,
-Dense Tactical Board,9x9,2,Minimax,None,0.00,0,0.02,,
-Dense Tactical Board,9x9,2,Alpha-Beta,None,0.00,0,0.02,Yes,
-Dense Tactical Board,9x9,3,Minimax,None,0.00,0,0.02,,
-Dense Tactical Board,9x9,3,Alpha-Beta,None,0.00,0,0.02,Yes,
-Many Legal Moves,9x9,1,Minimax,None,0.00,0,0.02,,
-Many Legal Moves,9x9,1,Alpha-Beta,None,0.00,0,0.02,Yes,
-Many Legal Moves,9x9,2,Minimax,None,0.00,0,0.02,,
-Many Legal Moves,9x9,2,Alpha-Beta,None,0.00,0,0.02,Yes,
-Many Legal Moves,9x9,3,Minimax,None,0.00,0,0.02,,
-Many Legal Moves,9x9,3,Alpha-Beta,None,0.00,0,0.02,Yes,
+Opening State,9x9,1,Minimax,"(5, 4)",0.00,4,0.39,,
+Opening State,9x9,1,Alpha-Beta,"(5, 4)",0.00,4,0.39,Yes,0.0
+Opening State,9x9,2,Minimax,"(5, 4)",-100.00,64,3.28,,
+Opening State,9x9,2,Alpha-Beta,"(5, 4)",-100.00,25,2.04,Yes,60.9
+Opening State,9x9,3,Minimax,"(5, 4)",0.00,1132,63.41,,
+Opening State,9x9,3,Alpha-Beta,"(5, 4)",0.00,199,16.12,Yes,82.4
+Mid-game State,9x9,1,Minimax,"(5, 5)",9900.00,20,1.18,,
+Mid-game State,9x9,1,Alpha-Beta,"(5, 5)",9900.00,20,1.17,Yes,0.0
+Mid-game State,9x9,2,Minimax,"(5, 5)",0.00,496,29.48,,
+Mid-game State,9x9,2,Alpha-Beta,"(5, 5)",0.00,104,11.98,Yes,79.0
+Mid-game State,9x9,3,Minimax,"(5, 5)",100000000.00,11892,764.65,,
+Mid-game State,9x9,3,Alpha-Beta,"(5, 5)",100000000.00,804,75.62,Yes,93.2
+Immediate AI Win,9x9,1,Minimax,"(2, 5)",100000000.00,21,1.36,,
+Immediate AI Win,9x9,1,Alpha-Beta,"(2, 5)",100000000.00,21,1.28,Yes,0.0
+Immediate AI Win,9x9,2,Minimax,"(2, 5)",100000000.00,21,1.27,,
+Immediate AI Win,9x9,2,Alpha-Beta,"(2, 5)",100000000.00,21,1.27,Yes,0.0
+Immediate AI Win,9x9,3,Minimax,"(2, 5)",100000000.00,21,1.26,,
+Immediate AI Win,9x9,3,Alpha-Beta,"(2, 5)",100000000.00,21,1.27,Yes,0.0
+Human Near-Win (Threat),9x9,1,Minimax,"(6, 4)",0.00,22,1.31,,
+Human Near-Win (Threat),9x9,1,Alpha-Beta,"(6, 4)",0.00,22,1.32,Yes,0.0
+Human Near-Win (Threat),9x9,2,Minimax,"(5, 1)",-100000000.00,569,33.86,,
+Human Near-Win (Threat),9x9,2,Alpha-Beta,"(5, 1)",-100000000.00,99,12.00,Yes,82.6
+Human Near-Win (Threat),9x9,3,Minimax,"(5, 1)",-100000001.00,12699,841.29,,
+Human Near-Win (Threat),9x9,3,Alpha-Beta,"(5, 1)",-100000001.00,467,48.54,Yes,96.3
+Dense Tactical Board,9x9,1,Minimax,"(6, 5)",-9700.00,24,1.80,,
+Dense Tactical Board,9x9,1,Alpha-Beta,"(6, 5)",-9700.00,24,1.79,Yes,0.0
+Dense Tactical Board,9x9,2,Minimax,"(4, 6)",-100000000.00,624,44.15,,
+Dense Tactical Board,9x9,2,Alpha-Beta,"(4, 6)",-100000000.00,152,18.06,Yes,75.6
+Dense Tactical Board,9x9,3,Minimax,"(4, 6)",-100000001.00,12840,1029.06,,
+Dense Tactical Board,9x9,3,Alpha-Beta,"(4, 6)",-100000001.00,1083,121.99,Yes,91.6
+Many Legal Moves,9x9,1,Minimax,"(5, 4)",10000.00,24,1.90,,
+Many Legal Moves,9x9,1,Alpha-Beta,"(5, 4)",10000.00,24,2.49,Yes,0.0
+Many Legal Moves,9x9,2,Minimax,"(5, 4)",900.00,624,56.39,,
+Many Legal Moves,9x9,2,Alpha-Beta,"(5, 4)",900.00,141,23.30,Yes,77.4
+Many Legal Moves,9x9,3,Minimax,"(5, 4)",100000000.00,15048,1306.43,,
+Many Legal Moves,9x9,3,Alpha-Beta,"(5, 4)",100000000.00,1055,144.79,Yes,93.0

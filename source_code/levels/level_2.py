@@ -13,9 +13,9 @@ import os
 
 
 def _format_score(score: float) -> str:
-    if score == math.inf:
+    if score == math.inf or score >= 100000000:
         return "+Inf (AI wins)"
-    elif score == -math.inf:
+    elif score == -math.inf or score <= -100000000:
         return "-Inf (Human wins)"
     return f"{score:.2f}"
 

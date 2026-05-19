@@ -58,10 +58,10 @@ class ConsoleUI:
         r, c = move
         runtime_ms = result.execution_time * 1000.0
 
-        # Format score: handle ±inf gracefully
-        if result.evaluation_score == math.inf:
+        # Format score: handle ±inf or large win scores gracefully
+        if result.evaluation_score == math.inf or result.evaluation_score >= 100000000:
             score_str = "+Infinity (AI wins)"
-        elif result.evaluation_score == -math.inf:
+        elif result.evaluation_score == -math.inf or result.evaluation_score <= -100000000:
             score_str = "-Infinity (Human wins)"
         else:
             score_str = f"{result.evaluation_score:.2f}"

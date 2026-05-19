@@ -1,7 +1,7 @@
 from typing import List, Tuple
 
 from source_code.game.board import Board
-from source_code.config import EMPTY
+from source_code.config import EMPTY, AI, HUMAN
 
 
 class MoveGenerator:
@@ -56,11 +56,52 @@ class MoveGenerator:
                         score += max(0, 5 - dist)
 
             # ---------------------------------
-            # KEEP ONLY GOOD MOVES
+            # KEEP ONLY GOOD MOVES WITH TACTICAL BONUS
             # ---------------------------------
+            # Tăng điểm cực lớn cho các nước đi hoàn thành chuỗi thắng hoặc chặn đối thủ
+            tactical_bonus = 0
+            for dr, dc in [(0, 1), (1, 0), (1, 1), (1, -1)]:
+                # Đếm quân AI liên tiếp qua (r, c)
+                count_ai = 0
+                nr, nc = r + dr, c + dc
+                while board.is_valid_pos(nr, nc) and board.grid[nr][nc] == AI:
+                    count_ai += 1
+                    nr += dr
+                    nc += dc
+                nr, nc = r - dr, c - dc
+                while board.is_valid_pos(nr, nc) and board.grid[nr][nc] == AI:
+                    count_ai += 1
+                    nr -= dr
+                    nc -= dc
+
+                # Đếm quân HUMAN liên tiếp qua (r, c)
+                count_human = 0
+                nr, nc = r + dr, c + dc
+                while board.is_valid_pos(nr, nc) and board.grid[nr][nc] == HUMAN:
+                    count_human += 1
+                    nr += dr
+                    nc += dc
+                nr, nc = r - dr, c - dc
+                while board.is_valid_pos(nr, nc) and board.grid[nr][nc] == HUMAN:
+                    count_human += 1
+                    nr -= dr
+                    nc -= dc
+
+                # Nếu giúp AI tạo chuỗi 4 (thắng ngay lập tức)
+                if count_ai >= 3:
+                    tactical_bonus += 10000
+                # Nếu giúp chặn đối thủ tạo chuỗi 4 (ngăn đối thủ thắng ngay lập tức)
+                if count_human >= 3:
+                    tactical_bonus += 5000
+                # Nếu tạo chuỗi 3 mở
+                if count_ai == 2:
+                    tactical_bonus += 200
+                if count_human == 2:
+                    tactical_bonus += 150
+
+            score += tactical_bonus
 
             if score >= 4:
-
                 candidates.append(
                     (
                         score,
@@ -81,7 +122,7 @@ class MoveGenerator:
         # LIMIT BRANCHING FACTOR
         # =====================================
 
-        MAX_MOVES = 12
+        MAX_MOVES = 24
 
         return [
             move

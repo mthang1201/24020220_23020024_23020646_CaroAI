@@ -65,7 +65,7 @@ class MinimaxAI(BaseAI):
                 if best_move:
                     best_overall_move = best_move
                     
-                if best_overall_score == math.inf:
+                if best_overall_score >= 100000000:
                     break
                     
         except TimeOutException:
@@ -88,9 +88,9 @@ class MinimaxAI(BaseAI):
         
         if game_state.is_terminal:
             if game_state.winner == AI:
-                return math.inf
+                return 100000000 + depth
             elif game_state.winner == HUMAN:
-                return -math.inf
+                return -100000000 - depth
             else:
                 return 0.0 # Draw
                 

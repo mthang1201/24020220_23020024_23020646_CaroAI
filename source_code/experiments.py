@@ -52,7 +52,7 @@ def build_state_from_grid(grid, board_size: int = BOARD_SIZE) -> GameState:
         for c in range(board_size):
             if grid[r][c] != EMPTY:
                 state.board.grid[r][c] = grid[r][c]
-                state.board.piece_count += 1
+    state.board.recalculate_candidates()
     state.current_player = AI
     return state
 
